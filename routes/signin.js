@@ -1,7 +1,13 @@
-var fn_signin = async (ctx, next) => {
-    ctx.body = "hello";
-};
+const router = require('koa-router')();
+const checkNotLogin = require('../middlewares/check').checkNotLogin;
 
-module.exports = {
-    'GET /signin': fn_signin
-};
+router.prefix('/signin');
+router.get('/', checkNotLogin, (ctx) => {
+    console.log(ctx.flash.get());
+    ctx.body = ctx.flash.get();
+});
+router.post('/', checkNotLogin, (ctx) => {
+    ctx.body = ctx.flash.get();
+});
+
+module.exports = router.routes();

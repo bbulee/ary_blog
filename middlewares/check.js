@@ -1,15 +1,16 @@
 var checkLogin = async (ctx, next)=>{
     console.log('session.user' + !ctx.session.user);
-    console.log('ctx.flash' + ctx.flash);
+    console.log('ctx.flash' + ctx.flash.get());
     if (!ctx.session.user) {
-        //ctx.flash.set('not login');
+        console.log('bbadfadf');
+        ctx.flash.set({error: 'not login'});
         return ctx.redirect('/signin');
     }
     await next();
 };
 
 var checkNotLogin = async (ctx, next)=>{
-    if (!ctx.session.user) {
+    if (ctx.session.user) {
         ctx.flash.set({error: 'have logined'});
         return ctx.redirect('back');
     }

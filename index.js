@@ -1,19 +1,41 @@
 const Koa = require('koa');
-const app = new Koa();
 const session = require('koa-session');
 const convert = require('koa-convert');
+const flash = require('koa-flash-simple')
+const views = require('koa-views');
+const pkg = require('./package');
+//const static = require('koa-static');
+const app = new Koa();
 
+app.use(views(__dirname + '/views', {
+  map: {
+    ejs: 'ejs'
+  }
+}));
+
+app.use(convert(require('koa-static')('./public')));
+
+app.keys=['ary blog'];
 var CONFIG = {
-  key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
+  key: 'aryblog:sess', /** (string) cookie key (default is koa:sess) */
   maxAge: 86400000, /** (number) maxAge in ms (default is 1 days) */
   overwrite: true, /** (boolean) can overwrite or not (default true) */
   httpOnly: true, /** (boolean) httpOnly or not (default true) */
   signed: true, /** (boolean) signed or not (default true) */
 };
 app.use(convert(session(CONFIG,app)));
+app.use(flash());
 
-const controller = require('./controller');
-app.use(controller());
+app.use(async (ctx,next) => {
+  ctx.state.blog = { 
+    title: pkg.name, 
+    description: pkg.description,
+  };
+  await next();
+});
+
+const controller = require('./routes');
+controller(app);
 
 app.listen(3000);
 console.log('Server start on port 3000...');

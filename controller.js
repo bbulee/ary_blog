@@ -1,21 +1,20 @@
 const fs = require('fs');
-const checkLogin = require('./middlewares/check').checkLogin;
 
 function addMapping(router, mapping) {
     for (let url in mapping) {
-        var filter = function(){};
-        if (url === 'filter') {
-            var filter = mapping[url];
+        var filters = [];
+        if ( url === 'filter' ) {
+            filters.push(mapping[url]);
             continue;
         }
 
-        if (url.startsWith('GET ')) {
+        if ( url.startsWith('GET ') ) {
             var path = url.substring(4);
-            router.get(path, filter, mapping[url]);
+            router.use(path, filters, mapping[url]);
             console.log(`register URL mapping: GET ${path}`);
         } else if (url.startsWith('POST ')) {
             var path = url.substring(5);
-            router.post(path, filter, mapping[url]);
+            router.post(path, filters, mapping[url]);
             console.log(`register URL mapping: POST ${path}`);
         } else {
             console.log(`invalid URL: ${url}`);

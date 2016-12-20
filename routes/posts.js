@@ -1,15 +1,33 @@
-//GET /posts all the articles of all the users or specified user.
-// eg: GET /posts?auther=xxx
-var fn_userArticles = async (ctx) => {
-    console.log(ctx.session.isNew);
-    ctx.body = "hello";
-};
+const router = require('koa-router')();
+const checkLogin = require('../middlewares/check').checkLogin;
 
-// POST /posts 发表一篇文章
-var fn_postArticle = async (ctx) => {
+router.prefix('/posts');
+// router.get('/', async (ctx) => {
+//     ctx.body = ctx.flash.get();
+// });
+router.get('/', checkLogin, async (ctx) => {
     ctx.body = ctx.flash.get();
-};
+});
+router.get('/create', checkLogin, async (ctx) => {
+    ctx.body = ctx.flash.get();
+});
+router.get('/:postId', async (ctx) => {
+    ctx.body = ctx.flash.get();
+});
+router.get('/:postId/edit', checkLogin, async (ctx) => {
+    ctx.body =ctx.flash.get();
+});
+router.post('/:postId/edit', checkLogin, async (ctx) => {
+    ctx.body =ctx.flash.get();
+});
+router.get('/:postId/remove', checkLogin, async (ctx) => {
+    ctx.body = ctx.flash.get();
+});
+router.post('/:postId/comment', checkLogin, async (ctx) => {
+    ctx.body = ctx.flash.get();
+});
+router.get(':postId/comment/:commentId/remove', checkLogin, async (ctx) => {
+    ctx.body = ctx.flash.get();
+});
 
-module.exports =  {
-    'GET /posts': fn_userArticles
-};
+module.exports = router.routes();
