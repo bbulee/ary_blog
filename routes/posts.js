@@ -3,7 +3,10 @@ const checkLogin = require('../middlewares/check').checkLogin;
 
 router.prefix('/posts');
 router.get('/', async (ctx) => {
-    await ctx.render('posts');
+    ctx.state.user = ctx.session.user;
+    ctx.state.error = ctx.flash.get();
+    ctx.state.success = ctx.flash.get();
+    await ctx.render('posts.ejs');
 });
 router.get('/', checkLogin, async (ctx) => {
     ctx.body = ctx.flash.get();

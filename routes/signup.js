@@ -61,21 +61,24 @@ router.post('/', checkNotLogin, async (ctx,next) => {
     };
 
     //用户信息写入数据库
-    UserModel.create(user).then( (result) => {
+    await UserModel.create(user).then( (result) => {
+        console.log('hello111');
         //此user是插入mongodb后的值，包含_id
         user = result.ops[0];
         //将用户信息存入session
         delete user.password;
+        ctx.session.user = user;
         ctx.flash.set('注册成功');
+
         //跳转到首页
-        ctx.redirect('/posts');
+        return ctx.redirect('/posts');
     }).catch( (e) => {
         console.log('hello');
         fs.unlink(ctx.request.files[0].path);
         //用户名被占用则跳回注册页，而不是错误页
         if (e.message.match('E11000 duplicate key')) {
             ctx.flash.set('用户名已被占用');
-            ctx.redirect('/signup');
+            return ctx.redirect('/signup');
         }
         console.error(e);
         console.error(e.statck);
