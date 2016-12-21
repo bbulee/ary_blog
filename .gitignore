@@ -48,3 +48,6 @@ jspm_packages
 
 # VSC setings
 .vscode
+
+# img folder
+public/img
