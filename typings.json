@@ -1,0 +1,9 @@
+{
+  "globalDependencies": {
+    "node": "registry:dt/node#6.0.0+20161220160159"
+  },
+  "dependencies": {
+    "koa": "registry:dt/koa#2.0.0+20161219223325",
+    "koa-router": "registry:dt/koa-router#7.0.0+20160915014424"
+  }
+}
