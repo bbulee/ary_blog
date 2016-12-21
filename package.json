@@ -24,11 +24,14 @@
     "config-lite": "^1.5.0",
     "ejs": "^2.5.5",
     "koa": "^2.0.0",
+    "koa-better-body": "^3.0.2",
     "koa-convert": "^1.2.0",
     "koa-flash-simple": "^0.0.3",
     "koa-router": "^7.0.1",
     "koa-session": "^3.4.0",
     "koa-static": "^2.0.0",
-    "koa-views": "^5.2.0"
+    "koa-views": "^5.2.0",
+    "mongolass": "^2.4.1",
+    "sha1": "^1.1.1"
   }
 }

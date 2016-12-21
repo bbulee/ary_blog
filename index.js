@@ -4,7 +4,8 @@ const convert = require('koa-convert');
 const flash = require('koa-flash-simple')
 const views = require('koa-views');
 const pkg = require('./package');
-//const static = require('koa-static');
+const parseBody = require('koa-better-body');
+const path = require('path');
 const app = new Koa();
 
 app.use(views(__dirname + '/views', {
@@ -25,6 +26,11 @@ var CONFIG = {
 };
 app.use(convert(session(CONFIG,app)));
 app.use(flash());
+
+app.use(convert(parseBody({
+  uploadDir: path.join(__dirname, 'public/img'),
+  keepExtensions: true
+})));
 
 app.use(async (ctx,next) => {
   ctx.state.blog = { 

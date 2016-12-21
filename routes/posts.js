@@ -2,9 +2,9 @@ const router = require('koa-router')();
 const checkLogin = require('../middlewares/check').checkLogin;
 
 router.prefix('/posts');
-// router.get('/', async (ctx) => {
-//     ctx.body = ctx.flash.get();
-// });
+router.get('/', async (ctx) => {
+    await ctx.render('posts');
+});
 router.get('/', checkLogin, async (ctx) => {
     ctx.body = ctx.flash.get();
 });
