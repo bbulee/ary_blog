@@ -13,7 +13,7 @@ router.get('/', checkNotLogin, async (ctx) => {
     ctx.state.success = ctx.flash.get();
     await ctx.render('signup.ejs');
 });
-router.post('/', checkNotLogin, async (ctx,next) => {
+router.post('/', checkNotLogin, async (ctx) => {
     //console.log(ctx.request.fields);
     // console.log(ctx.request.files[0].path);
 	var name = ctx.request.fields.name;
@@ -62,7 +62,6 @@ router.post('/', checkNotLogin, async (ctx,next) => {
 
     //用户信息写入数据库
     await UserModel.create(user).then( (result) => {
-        console.log('hello111');
         //此user是插入mongodb后的值，包含_id
         user = result.ops[0];
         //将用户信息存入session

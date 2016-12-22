@@ -1,6 +1,7 @@
 const router = require('koa-router')();
 
 module.exports = function(app) {
+
     router.get('/', async (ctx) => {
         ctx.redirect('/posts');
     });

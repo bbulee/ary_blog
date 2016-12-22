@@ -1,6 +1,4 @@
 var checkLogin = async (ctx, next)=>{
-    console.log('session.user' + !ctx.session.user);
-    console.log('ctx.flash' + ctx.flash.get());
     if (!ctx.session.user) {
         console.log('bbadfadf');
         ctx.flash.set('not login');
