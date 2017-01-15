@@ -2,6 +2,7 @@
   "name": "demoblog",
   "version": "1.0.0",
   "description": "My personal blog",
+  "main":"index.js",
   "scripts": {
     "test": "node start.js"
   },
