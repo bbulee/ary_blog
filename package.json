@@ -4,7 +4,7 @@
   "description": "My personal blog",
   "main":"index.js",
   "scripts": {
-    "test": "node start.js"
+    "start": "node start.js"
   },
   "repository": {
     "type": "git",
